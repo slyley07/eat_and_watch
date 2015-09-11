@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user, only: [:edit, :update, :destroy, :close,]
+
+  before_action :current_u, only: [:index, :edit, :update, :close, :destory ]
+
   def index
     @users = User.all
-    @user = current_user
+    # @user = current_user
     @user = User.new
   end
 
@@ -16,18 +20,18 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user
+    # @user = current_user
   end
 
   def close
-    @user = current_user
+    # @user = current_user
   end
 
   def create
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to @user, notice: 'Your account was successfully created!'
+      redirect_to posts_index, notice: 'Your account was successfully created!'
     else
       redirect_to root_path, notice: 'Something went wrong!'
     end
@@ -35,7 +39,7 @@ class UsersController < ApplicationController
 
 
   def update
-    @user = current_user
+    # @user = current_user
     if @user.update(user_params)
       redirect_to @user, notice: 'Use was successfully updated!'
     else
@@ -45,7 +49,7 @@ class UsersController < ApplicationController
 
 
   def destroy
-    @user = current_user
+    # @user = current_user
     if @user.password == params[:user][:password]
       @user.destroy
       session[:user_id] = nil
@@ -60,5 +64,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :username, :fname, :birthday, :gender, :city)
+  end
+
+  def current_u
+    @user = current_u
   end
 end

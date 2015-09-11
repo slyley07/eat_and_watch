@@ -7,6 +7,7 @@ class PostsController < ApplicationController
   end
 
   def new
+    @user = current_user
     @post = Post.new
   end
 
@@ -23,8 +24,11 @@ class PostsController < ApplicationController
   def create
     @user = current_user
     @post = Post.new(post_params)
+    p @user
+    p @post
+    p @post.user
     if @post.save
-      redirect_to user_path(@user), notice: "That's what you're eating and watching??"
+      redirect_to posts_path, notice: "That's what you're eating and watching??"
     else
       redirect_to root_path, notice: 'Something went wrong!'
     end
@@ -56,5 +60,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:food, :show).merge(user: params[:user])
+    params.require(:post).permit(:food, :show).merge(user_id: current_user.id)
+  end
 end

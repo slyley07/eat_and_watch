@@ -1,0 +1,15 @@
+<%= form_for [@user, @post] do |f| %>
+  <% if @post.errors.any? %>
+    <% @post.errors.full_messages.each do |msg| %>
+      <h3>
+        <%= msg %>
+      </h3>
+    <% end %>
+  <% end %>
+
+  <%= f.text_field :food, placeholder: :"What are you eating?" %>
+
+  <%= f.text_field :show, placeholder: :"What are you watching?" %>
+
+  <%= f.submit 'Post!' %>
+<% end %>
