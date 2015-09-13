@@ -8,4 +8,6 @@
   <p>
     <%= time_ago_in_words(post.created_at) %> ago
   </p>
+
+  <%= render partial: 'shared/follow', locals:{post: post} %>
 <% end %>

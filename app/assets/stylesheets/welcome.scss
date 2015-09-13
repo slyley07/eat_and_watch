@@ -1,3 +1,35 @@
 // Place all the styles related to the Welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.signUp {
+  display: inline-block;
+  text-align: center;
+  margin: 40px 60px;
+}
+
+.signIn {
+  display: inline-block;
+  text-align: center;
+  margin: 40px 60px;
+  vertical-align: top;
+}
+
+.form {
+  margin: 10px;
+}
+
+.form input {
+  border: 0;
+  font-size: 23px;
+  padding: 4px;
+}
+
+.form input[type="submit"] {
+  border: 0;
+  background-color: #808080;
+  color: #FFFFFF;
+  font-size: 23px;
+  padding: 15px;
+  width: 100%;
+}

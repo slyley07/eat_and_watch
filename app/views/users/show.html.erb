@@ -1,1 +1,25 @@
-<%= @user.username %>
+<h2>
+  <%= @user.username %>'s profile
+</h2>
+
+<% if current_user and current_user == @user %>
+  <%= link_to 'Edit your profile', edit_user_path(current_user.id) %>
+<% end %>
+
+<% if current_user == @user %>
+  <%= render partial: 'posts/new' %>
+<% end %>
+
+<% @posts.reverse.each do |post| %>
+  <p>
+    <%= post.user.username %> is watching <%= post.show %> and eating <%= post.food %>
+  </p>
+
+  <p>
+    <%= time_ago_in_words(post.created_at) %> ago
+  </p>
+
+  <% if current_user and current_user == @user %>
+    <%= link_to 'Delete Post?', user_post_path(current_user.id, post.id), method: :delete %>
+  <% end %>
+<% end %>
