@@ -93,7 +93,7 @@ class UsersController < ApplicationController
 
   def set_user
     begin
-      @user = User.find(params[id])
+      @user = User.find(params[:id])
     rescue
       redirect_to posts_path
     end
