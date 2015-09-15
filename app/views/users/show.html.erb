@@ -2,6 +2,15 @@
   <%= @user.username %>'s profile
 </h2>
 
+<p>
+<%= link_to 'Following:',  %>
+  Following: <%= @user.following.length %>
+</p>
+
+<p>
+  Followers: <%= @user.followed.length %>
+</p>
+
 <% if current_user and current_user == @user %>
   <div class="edit">
     <%= link_to 'Edit your profile', edit_user_path(@user) %>
@@ -14,8 +23,6 @@
 
 <div class="posts">
 <% @posts.reverse.each do |post| %>
-
-
   <p>
     <%= post.user.username %> is watching <%= post.show %> and eating <%= post.food %>
   </p>
