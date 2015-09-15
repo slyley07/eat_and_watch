@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user, only: [:edit, :update, :destroy, :close,]
+  before_action :current_u, only: [:index]
 
-  before_action :current_u, only: [:index, :edit, :update, :close, :destory ]
+  before_action :set_user, only: [:show, :edit, :update, :close, :destroy]
+
+  before_action :authenticate_user!, except: [:index, :new, :show]
 
   def index
     @users = User.all
-    # @user = current_user
     @user = User.new
   end
 
@@ -14,42 +15,37 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
     @posts = @user.posts.all
     @post = Post.new
   end
 
   def edit
-    # @user = current_user
   end
 
   def close
-    # @user = current_user
   end
 
   def create
     @user = User.new(user_params)
+    p @user
     if @user.save
       session[:user_id] = @user.id
-      redirect_to posts_index, notice: 'Your account was successfully created!'
+      redirect_to posts_path, notice: 'Your account was successfully created!'
     else
       redirect_to root_path, notice: 'Something went wrong!'
     end
   end
 
-
   def update
-    # @user = current_user
-    if @user.update(user_params)
-      redirect_to @user, notice: 'Use was successfully updated!'
-    else
-      render :edit
-    end
+    @user.update(user_params)
+    p @user
+    redirect_to @user, notice: 'User was successfully updated!'
+    # else
+    #   render :edit
+    # end
   end
 
-
   def destroy
-    # @user = current_user
     if @user.password == params[:user][:password]
       @user.destroy
       session[:user_id] = nil
@@ -60,10 +56,47 @@ class UsersController < ApplicationController
     end
   end
 
+  def follow
+    @relationship = Relationship.new(follower_id: current_user.id, followed_id: params[:id])
+    @user = User.find(params[:id])
+    if @relationship.save
+      # respond_to do |format|
+      #   format.js
+      # end
+      flash[:notice] = "You're now following #{@user.username}"
+      redirect_to posts_path
+    else
+      flash[:alert] = "There was a problem following that user!"
+      redirect_to posts_path
+    end
+  end
+
+  def unfollow
+    @relationship = Relationship.find_by(follower_id: current_user, followed_id: params[:id])
+    @user = User.find(params[:id])
+    if @relationship and @relationship.destroy
+      flash[:notice] = "You've successfully unfollowed #{@user.username}"
+      p @relationship
+      redirect_to posts_path
+    else
+      flash[:alert] = "There was a problem unfollowing that user."
+      p @relationship
+      redirect_to posts_path
+    end
+  end
+
   private
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :username, :fname, :birthday, :gender, :city)
+  end
+
+  def set_user
+    begin
+      @user = User.find(params[id])
+    rescue
+      redirect_to posts_path
+    end
   end
 
   def current_u

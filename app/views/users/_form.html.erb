@@ -7,24 +7,28 @@
     <% end %>
   <% end %>
 
-  <div class="">
+  <div class="form">
     <%= f.text_field :username, placeholder: 'Username' %>
   </div>
 
-  <div class="">
+  <div class="form">
     <%= f.email_field :email, placeholder: 'Email' %>
   </div>
 
-  <div class="">
-    <%= f.password_field :password, placeholder: 'Password' %>
-  </div>
+  <% if @user.new_record? %>
+    <div class="form">
+      <%= f.password_field :password, placeholder: 'Password' %>
+    </div>
 
 
-  <div class="">
-    <%= f.password_field :password_confirmation, placeholder: 'Confirm your password' %>
+    <div class="form">
+      <%= f.password_field :password_confirmation, placeholder: 'Confirm your password' %>
+    </div>
+  <% end %>
+
+  <div class="form">
+    <%= f.submit @user.new_record? ? 'Sign Up!' : 'Save Changes' %>
   </div>
 
-  <div class="">
-    <%= f.submit 'Sign up!' %>
-  </div>
+  <%= link_to 'cancel', @user.new_record? ? root_path : user_path(@user)  %>
 <% end %>

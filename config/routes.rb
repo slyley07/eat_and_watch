@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'welcome#index'
 
-  get 'welcome/index'
+  # get 'welcome/index'
 
   get '/login', to: 'sessions#new'
 
@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   end
 
   get 'posts', to: 'posts#index', as: 'posts'
+
+  get '/follow/:id', to: 'users#follow', as: 'follow_user'
+
+  get '/unfollow/:id', to: 'users#unfollow', as: 'unfollow_user'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

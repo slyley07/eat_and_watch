@@ -24,9 +24,6 @@ class PostsController < ApplicationController
   def create
     @user = current_user
     @post = Post.new(post_params)
-    p @user
-    p @post
-    p @post.user
     if @post.save
       redirect_to posts_path, notice: "That's what you're eating and watching??"
     else
@@ -46,7 +43,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def destory
+  def destroy
     @user = current_user
     @post = Post.find(params[:id])
     if @user and @post and @user == @post.user
@@ -54,6 +51,7 @@ class PostsController < ApplicationController
       redirect_to @user, notice: 'You have deleted that post!'
     else
       flash[:alert] = 'Something went wrong with deleting that post'
+      redirect_to @user
     end
   end
 

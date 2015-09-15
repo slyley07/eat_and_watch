@@ -1,11 +1,17 @@
 <%= render partial: 'new' %>
 
-<% @posts.reverse.each do |post| %>
-  <p>
-    <%= link_to post.user.username, user_path(post.user.id) %> is watching <%= post.show %> and eating <%= post.food %>
-  </p>
+<div class="posts">
+  <% @posts.reverse.each do |post| %>
+    <p>
+      <span class="user"><%= link_to post.user.username, user_path(post.user.id) %></span> is watching <%= post.show %> and eating <%= post.food %>
+    </p>
 
-  <p>
-    <%= time_ago_in_words(post.created_at) %> ago
-  </p>
-<% end %>
+    <p class="longAgo">
+      <%= time_ago_in_words(post.created_at) %> ago
+
+      <%= render partial: 'shared/follow', locals:{post: post} %>
+    </p>
+
+    <hr>
+  <% end %>
+</div>
