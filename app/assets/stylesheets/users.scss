@@ -15,3 +15,26 @@
     font-size: 18px;
   }
 }
+
+.posts {
+  width: 60%;
+  margin: 0 auto;
+
+  p {
+    font-size: 22px;
+  }
+
+  .longAgo {
+    text-align: right;
+
+    a {
+      color: #808080;
+      text-decoration: none;
+    }
+  }
+
+  hr {
+    border: 0px;
+    border-bottom: 1px solid #083D77;
+  }
+}

@@ -38,7 +38,6 @@ class UsersController < ApplicationController
 
   def update
     @user.update(user_params)
-    p @user
     redirect_to @user, notice: 'User was successfully updated!'
     # else
     #   render :edit
@@ -60,15 +59,16 @@ class UsersController < ApplicationController
     @relationship = Relationship.new(follower_id: current_user.id, followed_id: params[:id])
     @user = User.find(params[:id])
     if @relationship.save
-      # respond_to do |format|
-      #   format.js
-      # end
       flash[:notice] = "You're now following #{@user.username}"
       redirect_to posts_path
     else
       flash[:alert] = "There was a problem following that user!"
       redirect_to posts_path
     end
+    # respond_to do |format|
+    #   format.html { redirect_to posts_path }
+    #   format.js { render nothing: true }
+    # end
   end
 
   def unfollow
@@ -76,11 +76,16 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @relationship and @relationship.destroy
       flash[:notice] = "You've successfully unfollowed #{@user.username}"
-      p @relationship
+      # respond_to do |format|
+      #   format.html { redirect_to posts_path }
+      #   format.js { render nothing: true }
+      # end
+      # p "*****************************"
       redirect_to posts_path
     else
       flash[:alert] = "There was a problem unfollowing that user."
-      p @relationship
+      # p "@@@@@@@@@@@@@@@@@@@@@@@@"
+      # p @relationship
       redirect_to posts_path
     end
   end
@@ -93,7 +98,7 @@ class UsersController < ApplicationController
 
   def set_user
     begin
-      @user = User.find(params[id])
+      @user = User.find(params[:id])
     rescue
       redirect_to posts_path
     end
