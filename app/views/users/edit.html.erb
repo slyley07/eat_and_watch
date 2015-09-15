@@ -1,1 +1,7 @@
-<%= render partial: 'form' %>
+<% if current_user.id == @user.id %>
+  <%= render partial: 'form' %>
+<% else %>
+  <h2>
+    Sorry! You aren't authorized to view this page!
+  </h2>
+<% end %>

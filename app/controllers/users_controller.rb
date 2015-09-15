@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :current_u, only: [:index, :edit, :update, :close, :destory ]
+  before_action :current_u, only: [:index]
+
+  before_action :set_user, only: [:show, :edit, :update, :close, :destroy]
 
   before_action :authenticate_user!, except: [:index, :new, :show]
 
@@ -13,7 +15,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
     @posts = @user.posts.all
     @post = Post.new
   end
@@ -36,11 +37,12 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
-      redirect_to @user, notice: 'Use was successfully updated!'
-    else
-      render :edit
-    end
+    @user.update(user_params)
+    p @user
+    redirect_to @user, notice: 'User was successfully updated!'
+    # else
+    #   render :edit
+    # end
   end
 
   def destroy
@@ -72,20 +74,29 @@ class UsersController < ApplicationController
   def unfollow
     @relationship = Relationship.find_by(follower_id: current_user, followed_id: params[:id])
     @user = User.find(params[:id])
-    if @relationships and @relationship.destroy
+    if @relationship and @relationship.destroy
       flash[:notice] = "You've successfully unfollowed #{@user.username}"
+      p @relationship
       redirect_to posts_path
     else
       flash[:alert] = "There was a problem unfollowing that user."
+      p @relationship
       redirect_to posts_path
     end
-    # redirect_to @user
   end
 
   private
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :username, :fname, :birthday, :gender, :city)
+  end
+
+  def set_user
+    begin
+      @user = User.find(params[id])
+    rescue
+      redirect_to posts_path
+    end
   end
 
   def current_u

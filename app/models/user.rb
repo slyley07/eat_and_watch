@@ -10,9 +10,9 @@ class User < ActiveRecord::Base
   has_many :following, through: :active_relationships, source: :followed
 
   has_many :followed, through: :passive_relationships, source: :follower
-  #
+
   validates_uniqueness_of :username, :email, case_sensitive: :false
-  #
+  
   validates_presence_of :username, :email, :password
 
   validates :username, format: {with: /\A\w+\z/, message: "Only letters, numbers, and underscores allowed"}

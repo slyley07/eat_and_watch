@@ -15,16 +15,20 @@
     <%= f.email_field :email, placeholder: 'Email' %>
   </div>
 
-  <div class="form">
-    <%= f.password_field :password, placeholder: 'Password' %>
-  </div>
+  <% if @user.new_record? %>
+    <div class="form">
+      <%= f.password_field :password, placeholder: 'Password' %>
+    </div>
 
 
-  <div class="form">
-    <%= f.password_field :password_confirmation, placeholder: 'Confirm your password' %>
-  </div>
+    <div class="form">
+      <%= f.password_field :password_confirmation, placeholder: 'Confirm your password' %>
+    </div>
+  <% end %>
 
   <div class="form">
-    <%= f.submit 'Sign up!' %>
+    <%= f.submit @user.new_record? ? 'Sign Up!' : 'Save Changes' %>
   </div>
+
+  <%= link_to 'cancel', @user.new_record? ? root_path : user_path(@user)  %>
 <% end %>

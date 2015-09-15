@@ -1,3 +1,50 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+form {
+  text-align: center;
+
+  input {
+    font-size: 23px;
+    padding: 10px;
+  }
+
+  input[type="submit"] {
+    border: 0;
+    background-color: #808080;
+    color: #FFFFFF;
+  }
+}
+
+.posts {
+  width: 60%;
+  margin: 0 auto;
+
+  p {
+    font-size: 22px;
+
+    .user {
+      // text-transform: capitalize;
+
+      a {
+        color: #808080;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .longAgo {
+    text-align: right;
+
+    a {
+      color: #808080;
+      text-decoration: none;
+    }
+  }
+
+  hr {
+    border: 0px;
+    border-bottom: 1px solid #083D77;
+  }
+}
