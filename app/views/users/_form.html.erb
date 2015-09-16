@@ -32,9 +32,8 @@
     </h3>
 
     <div class="profUpload">
-      <div class="avatarBig">
-        <%= image_tag @user.avatar.url.to_s %>
-      </div>
+
+      <%= render partial: 'shared/avatarbig', locals: {f: @user}%>
 
       <div class="fileField">
         <%= f.file_field :avatar %>

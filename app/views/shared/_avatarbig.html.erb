@@ -1,0 +1,9 @@
+<% if f.avatar? %>
+  <div class="avatarBig">
+    <%= image_tag f.avatar.url.to_s %>
+  </div>
+<% else %>
+  <div class="avatarBig">
+    <%= image_tag 'default.jpg' %>
+  </div>
+<% end %>

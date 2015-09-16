@@ -2,18 +2,9 @@
 
 <div class="indexPosts">
   <% @posts.reverse.each do |post| %>
-    <% if post.user.avatar? %>
-      <div class="avatarSmall">
-        <%= image_tag post.user.avatar.url.to_s %>
-      </div>
-    <% else %>
-      <div class="avatarSmall">
-        <%= image_tag 'default.jpg' %>
-      </div>
-    <% end %>
-
+  <%= render partial: 'shared/avatarsmall', locals: {f: post.user}%>
     <p>
-      <span class="user"><%= link_to post.user.username, user_path(post.user.id) %></span> is watching <%= post.show %> and eating <%= post.food %>
+      <span class="user"><%= link_to post.user.username, profile_path(post.user.username) %></span> is watching <%= post.show %> and eating <%= post.food %>
     </p>
 
     <p class="longAgo">
