@@ -8,19 +8,23 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
 
-  resources :users do
+  resources :users, except: [:show] do
     resources :posts do
       resources :comments
     end
   end
 
+  get '/profile/:username', to: 'users#show', as: 'profile'
+
+  # get '/user/:username/edit', to: 'users#edit', as:
+
   get '/posts', to: 'posts#index', as: 'posts'
 
-  post '/follow/:id', to: 'users#follow', as: 'follow_user'
+  post '/follow/:username', to: 'users#follow', as: 'follow_user'
 
-  post '/unfollow/:id', to: 'users#unfollow', as: 'unfollow_user'
+  post '/unfollow/:username', to: 'users#unfollow', as: 'unfollow_user'
 
-  get '/user/:id/following', to: 'users#following', as: 'following'
+  get '/profile/:username/following', to: 'users#following', as: 'following'
 
-  get '/user/:id/followers', to: 'users#followers', as: 'followed'
+  get '/profile/:username/followers', to: 'users#followers', as: 'followed'
 end

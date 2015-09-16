@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :current_u, only: [:index]
 
-  before_action :set_user, only: [:show, :edit, :update, :close, :destroy, :follow, :unfollow]
+  before_action :set_user, only: [:show, :edit, :update, :close, :destroy, :follow, :unfollow, :following, :followers]
 
   before_action :authenticate_user!, except: [:index, :new, :create, :show]
 
@@ -85,11 +85,9 @@ class UsersController < ApplicationController
   end
 
   def following
-    @user = User.find(params[:id])
   end
 
   def followers
-    @user = User.find(params[:id])
   end
 
   private
@@ -100,7 +98,11 @@ class UsersController < ApplicationController
 
   def set_user
     begin
-      @user = User.find(params[:id])
+      if params[:username]
+        @user = User.find_by_username(params[:username])
+      else
+        @user = User.find(params[:id])
+      end
     rescue
       redirect_to posts_path
     end
