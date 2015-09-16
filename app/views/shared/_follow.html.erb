@@ -1,7 +1,7 @@
-<% if current_user and current_user != post.user %>
-  <% if current_user and current_user.following.include?(post.user) %>
-    <%= link_to 'unfollow', unfollow_user_path(post.user) %>
+<% if current_user and current_user.id != f.id %>
+  <% if current_user.following.include?(f) %>
+    <%= link_to 'unfollow', unfollow_user_path(f.id) %>
   <% else %>
-    <%= link_to 'follow', follow_user_path(post.user) %>
+    <%= link_to 'follow', follow_user_path(f.id) %>
   <% end %>
 <% end %>

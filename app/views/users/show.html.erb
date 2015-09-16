@@ -1,38 +1,71 @@
-<h2 class="user">
-  <%= @user.username %>'s profile
-</h2>
+<div class="userInfo">
+  <div class="uhvatah">
+    <div class="avatarBig">
+      <%= image_tag @user.avatar.url.to_s %>
+    </div>
 
-<p>
-<%= link_to 'Following:',  %>
-  Following: <%= @user.following.length %>
-</p>
-
-<p>
-  Followers: <%= @user.followed.length %>
-</p>
-
-<% if current_user and current_user == @user %>
-  <div class="edit">
-    <%= link_to 'Edit your profile', edit_user_path(@user) %>
+    <% if current_user and current_user == @user %>
+      <div class="edit">
+        <%= link_to 'Edit your profile', edit_user_path(@user) %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+
+  <div class="userText">
+    <h2 class="userHeader">
+      <%= @user.username %>'s profile
+    </h2>
+
+    <div class="sideInfo">
+      <% if @user.birthday? != nil %>
+        <p>
+          Birthday: <%= @user.birthday %>
+        </p>
+      <% end %>
+
+      <% if @user.gender? != nil %>
+        <p>
+          Gender: <%= @user.gender %>
+        </p>
+      <% end %>
+
+      <% if @user.city? != nil %>
+        <p>
+          City: <%= @user.city %>
+        </p>
+      <% end %>
+    </div>
+
+    <div class="fullow">
+      <div class="fallow first">
+        <p>
+          <%= @user.following.length %>
+        </p>
+
+        <p>
+          <%= link_to 'Following', following_path(@user) %>
+        </p>
+      </div>
+
+      <div class="fallow">
+        <p>
+          <%= @user.followed.length %>
+        </p>
+
+        <p>
+          <%= link_to 'Followers', followed_path(@user) %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class='diver'>
 
 <% if current_user == @user %>
   <%= render partial: 'posts/new' %>
 <% end %>
 
-<div class="posts">
-<% @posts.reverse.each do |post| %>
-  <p>
-    <%= post.user.username %> is watching <%= post.show %> and eating <%= post.food %>
-  </p>
-
-  <p>
-    <%= time_ago_in_words(post.created_at) %> ago
-  </p>
-
-  <% if current_user and current_user == @user %>
-    <%= link_to 'Delete Post?', user_post_path(current_user.id, post.id), method: :delete %>
-  <% end %>
-<% end %>
+<div class="userPosts">
+  <%= render @user.posts.reverse %>
 </div>

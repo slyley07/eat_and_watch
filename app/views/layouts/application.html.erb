@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>
-      Watch-N-Eat
+      What Are You Binging?
     </title>
 
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
@@ -18,9 +18,21 @@
 
   <body>
     <div class="wrapper">
-        <%= render partial: 'shared/nav' %>
+      <%= render partial: 'shared/nav' %>
 
-        <%= yield %>
+      <% if flash[:notice] %>
+        <div class="notice">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+
+      <% if flash[:alert] %>
+        <div class="alert">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
+      <%= yield %>
     </div>
   </body>
 </html>
