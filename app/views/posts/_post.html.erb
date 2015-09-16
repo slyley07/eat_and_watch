@@ -1,0 +1,12 @@
+<p>
+  <span class="user"><%= link_to post.user.username, user_path(post.user.id) %></span> is watching <%= post.show %> and eating <%= post.food %>
+</p>
+
+<p class="longAgo">
+  <%= time_ago_in_words(post.created_at) %> ago
+</p>
+<% if current_user and current_user == @user %>
+  <%= link_to 'Delete Post?', user_post_path(current_user.id, post.id), method: :delete, class: :deleter %>
+<% end %>
+
+<hr class='diver'>

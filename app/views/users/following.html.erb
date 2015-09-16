@@ -5,9 +5,17 @@
 
   <% if @user.following.length != 0 %>
     <% @user.following.each do |f| %>
+      <div class="avatarSmall">
+        <%= image_tag f.avatar.url.to_s %>
+      </div>
+
       <div class="peeps">
         <%= link_to f.username, user_path(f.id) %>
       </div>
+
+      <p>
+        <%= render partial: 'shared/follow', locals:{f: f} %>
+      </p>
     <% end %>
   <% else %>
     <p>

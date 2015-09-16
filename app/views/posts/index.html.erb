@@ -1,7 +1,17 @@
 <%= render partial: 'new' %>
 
-<div class="posts">
+<div class="indexPosts">
   <% @posts.reverse.each do |post| %>
+    <% if post.user.avatar? %>
+      <div class="avatarSmall">
+        <%= image_tag post.user.avatar.url.to_s %>
+      </div>
+    <% else %>
+      <div class="avatarSmall">
+        <%= image_tag 'default.jpg' %>
+      </div>
+    <% end %>
+
     <p>
       <span class="user"><%= link_to post.user.username, user_path(post.user.id) %></span> is watching <%= post.show %> and eating <%= post.food %>
     </p>
@@ -9,7 +19,7 @@
     <p class="longAgo">
       <%= time_ago_in_words(post.created_at) %> ago
 
-      <%= render partial: 'shared/follow', locals:{post: post} %>
+      <%= render partial: 'shared/follow', locals:{f: post.user} %>
     </p>
 
     <hr>

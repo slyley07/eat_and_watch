@@ -53,5 +53,31 @@ body {
         }
       }
     }
+
+    .avatarSmall{
+      display: inline-block;
+      width: 70px;
+      background-color: #FFFFFF;
+
+      img {
+        width: 70px;
+      }
+    }
+
+    .avatarBig {
+      width: 270px;
+      background-color: #FFFFFF;
+
+      img {
+        width: 270px;
+        vertical-align: bottom;
+      }
+    }
+  }
+
+  .diver {
+    border: 0px;
+    border-bottom: 1px solid #083D77;
+    margin-bottom: 30px;
   }
 }
