@@ -2,14 +2,29 @@
   <%= @user.username %>'s profile
 </h2>
 
-<p>
-<%= link_to 'Following:',  %>
-  Following: <%= @user.following.length %>
-</p>
+<div class="fullow">
+  <div class="fallow first">
+    <p>
+      <%= @user.following.length %>
+    </p>
 
-<p>
-  Followers: <%= @user.followed.length %>
-</p>
+    <p>
+      <%= link_to 'Following', following_path(@user) %>
+    </p>
+  </div>
+
+  <div class="fallow">
+    <p>
+      <%= @user.followed.length %>
+    </p>
+
+    <p>
+      <%= link_to 'Followers', followed_path(@user) %>
+    </p>
+  </div>
+</div>
+
+<hr class='diver'>
 
 <% if current_user and current_user == @user %>
   <div class="edit">
@@ -22,17 +37,19 @@
 <% end %>
 
 <div class="posts">
-<% @posts.reverse.each do |post| %>
-  <p>
-    <%= post.user.username %> is watching <%= post.show %> and eating <%= post.food %>
-  </p>
+  <% @posts.reverse.each do |post| %>
+    <p>
+      <%= post.user.username %> is watching <%= post.show %> and eating <%= post.food %>.
+    </p>
 
-  <p>
-    <%= time_ago_in_words(post.created_at) %> ago
-  </p>
+    <p class="longAgo">
+      <%= time_ago_in_words(post.created_at) %> ago
+    </p>
 
-  <% if current_user and current_user == @user %>
-    <%= link_to 'Delete Post?', user_post_path(current_user.id, post.id), method: :delete %>
+    <% if current_user and current_user == @user %>
+      <%= link_to 'Delete Post?', user_post_path(current_user.id, post.id), method: :delete, class: :deleter %>
+    <% end %>
+
+    <hr>
   <% end %>
-<% end %>
 </div>

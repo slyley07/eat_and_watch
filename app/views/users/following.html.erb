@@ -1,0 +1,17 @@
+<div class="peepsCorral">
+  <h3>
+    <%= @user.username %> is following
+  </h3>
+
+  <% if @user.following.length != 0 %>
+    <% @user.following.each do |f| %>
+      <div class="peeps">
+        <%= link_to f.username, user_path(f.id) %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>
+      <%= @user.username %> isn't following anyone!
+    </p>
+  <% end %>
+</div>
