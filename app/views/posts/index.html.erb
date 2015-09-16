@@ -1,18 +1,53 @@
-<%= render partial: 'new' %>
+<% if @user %>
+  <%= render partial: 'new' %>
+<% end %>
 
 <div class="indexPosts">
-  <% @posts.reverse.each do |post| %>
-  <%= render partial: 'shared/avatarsmall', locals: {f: post.user}%>
-    <p>
-      <span class="user"><%= link_to post.user.username, profile_path(post.user.username) %></span> is watching <%= post.show %> and eating <%= post.food %>
-    </p>
+  <div class="tabs">
+    <a href="#" class='tab' id="allPosts" onclick="showAll()">
+      All
+    </a>
 
-    <p class="longAgo">
-      <%= time_ago_in_words(post.created_at) %> ago
+    <a href="#" class='tab' id="followingPosts" onclick="showFollowing()">
+      Following
+    </a>
+  </div>
 
-      <%= render partial: 'shared/follow', locals:{f: post.user} %>
-    </p>
+  <div id="nonSpecific">
+    <% @posts.each do |post| %>
+      <%= render partial: 'shared/avatarsmall', locals: {f: post.user}%>
 
-    <hr>
-  <% end %>
+      <p>
+        <span class="user"><%= link_to post.user.username, profile_path(post.user.username) %></span> is watching <%= post.show %> and eating <%= post.food %>.
+      </p>
+
+      <p class="longAgo">
+        <%= time_ago_in_words(post.created_at) %> ago
+
+        <%= render partial: 'shared/follow', locals:{f: post.user} %>
+      </p>
+
+      <hr>
+    <% end %>
+  </div>
+
+  <div id="verySpecific">
+    <% if @user.following.length != 0 %>
+      <% @f_posts.reverse_each do |post| %>
+          <%= render partial: 'shared/avatarsmall', locals: {f: post.user}%>
+
+          <p>
+            <span class="user"><%= link_to post.user.username, profile_path(post.user.username) %></span> is watching <%= post.show %> and eating <%= post.food %>
+          </p>
+
+          <p class="longAgo">
+            <%= time_ago_in_words(post.created_at) %> ago
+
+            <%= render partial: 'shared/follow', locals:{f: post.user} %>
+          </p>
+
+          <hr>
+      <% end %>
+    <% end %>
+  </div>
 </div>

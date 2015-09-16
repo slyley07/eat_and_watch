@@ -2,8 +2,10 @@ class PostsController < ApplicationController
   def index
     @user = current_user
     @users = User.all
-    @posts = Post.all
+    @posts = Post.all.reverse
     @post = Post.new
+    # @followers = @user.followers
+    @f_posts = Post.subscribed current_user.following
   end
 
   def new

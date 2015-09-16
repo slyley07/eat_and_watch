@@ -14,3 +14,31 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+var element = document.getElementById;
+var bgcolor = '#B7C2CB';
+var txtcolor = '#FFFFFF';
+
+function showAll() {
+  document.getElementById('allPosts').addEventListener("click", function(event){
+      event.preventDefault()
+  });
+
+  document.getElementById('verySpecific').style.display = 'none';
+  document.getElementById('nonSpecific').style.background = 'none';
+  document.getElementById('nonSpecific').style.display = 'block';
+  document.getElementById('allPosts').style.background = bgcolor;
+  document.getElementById('allPosts').style.color = txtcolor;
+}
+
+function showFollowing() {
+  document.getElementById('followingPosts').addEventListener("click", function(event){
+      event.preventDefault()
+  });
+
+  document.getElementById('nonSpecific').style.display = 'none';
+  document.getElementById('nonSpecific').style.background = 'none';
+  document.getElementById('verySpecific').style.display = 'block';
+  document.getElementById('followingPosts').style.background = bgcolor;
+  document.getElementById('followingPosts').style.color = txtcolor;
+}
