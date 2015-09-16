@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :current_u, only: [:index]
 
-  before_action :set_user, only: [:show, :edit, :update, :close, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :close, :destroy, :follow, :unfollow]
 
   before_action :authenticate_user!, except: [:index, :new, :create, :show]
 
@@ -56,11 +56,10 @@ class UsersController < ApplicationController
   end
 
   def follow
-    @relationship = Relationship.new(follower_id: current_user.id, followed_id: params[:id])
-    @user = User.find(params[:id])
+    @relationship = Relationship.new(follower_id: current_user.id, followed_id: @user.id)
+    p @user
     if @relationship.save
-      flash[:notice] = "You're now following #{@user.username}"
-      redirect_to posts_path
+      redirect_to @user, notice: "You're now following #{@user.username}"
     else
       flash[:alert] = "There was a problem following that user!"
       redirect_to posts_path
@@ -72,20 +71,15 @@ class UsersController < ApplicationController
   end
 
   def unfollow
-    @relationship = Relationship.find_by(follower_id: current_user, followed_id: params[:id])
-    @user = User.find(params[:id])
+    @relationship = Relationship.find_by(follower_id: current_user, followed_id: @user.id)
     if @relationship and @relationship.destroy
-      flash[:notice] = "You've successfully unfollowed #{@user.username}"
       # respond_to do |format|
       #   format.html { redirect_to posts_path }
       #   format.js { render nothing: true }
       # end
-      # p "*****************************"
-      redirect_to posts_path
+      redirect_to posts_path, notice: "You've successfully unfollowed #{@user.username}"
     else
       flash[:alert] = "There was a problem unfollowing that user."
-      # p "@@@@@@@@@@@@@@@@@@@@@@@@"
-      # p @relationship
       redirect_to posts_path
     end
   end

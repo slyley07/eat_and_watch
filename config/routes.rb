@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-  get 'images/new'
-
-  get 'images/update'
-
-  get 'images/destroy'
-
   root 'welcome#index'
 
   get '/login', to: 'sessions#new'
@@ -22,9 +16,9 @@ Rails.application.routes.draw do
 
   get '/posts', to: 'posts#index', as: 'posts'
 
-  get '/follow/:id', to: 'users#follow', as: 'follow_user'
+  post '/follow/:id', to: 'users#follow', as: 'follow_user'
 
-  get '/unfollow/:id', to: 'users#unfollow', as: 'unfollow_user'
+  post '/unfollow/:id', to: 'users#unfollow', as: 'unfollow_user'
 
   get '/user/:id/following', to: 'users#following', as: 'following'
 

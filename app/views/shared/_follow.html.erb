@@ -1,7 +1,7 @@
 <% if current_user and current_user.id != f.id %>
   <% if current_user.following.include?(f) %>
-    <%= link_to 'unfollow', unfollow_user_path(f.id) %>
+    <%= link_to 'unfollow', unfollow_user_path(f.id), method: :post %>
   <% else %>
-    <%= link_to 'follow', follow_user_path(f.id) %>
+    <%= link_to 'follow', follow_user_path(f.id), method: :post %>
   <% end %>
 <% end %>
