@@ -54,5 +54,7 @@
     <%= f.submit @user.new_record? ? 'Sign Up!' : 'Save Changes' %>
   </div>
 
-  <%= link_to 'cancel', @user.new_record? ? root_path : user_path(@user)  %>
+  <% if !@user.new_record?%>
+    <%= link_to 'cancel', @user.new_record? ? root_path : profile_path(@user.username)  %>
+  <% end %>
 <% end %>

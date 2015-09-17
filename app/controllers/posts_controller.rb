@@ -50,10 +50,10 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @user and @post and @user == @post.user
       @post.destroy
-      redirect_to @user, notice: 'You have deleted that post!'
+      redirect_to profile_path(@user.username), notice: 'You have deleted that post!'
     else
       flash[:alert] = 'Something went wrong with deleting that post'
-      redirect_to @user
+      redirect_to profile_path(@user.username)
     end
   end
 
