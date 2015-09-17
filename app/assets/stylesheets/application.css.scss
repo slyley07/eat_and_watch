@@ -38,7 +38,17 @@ body {
           padding: 0;
           list-style-type: none;
           margin: 0 auto;
-          width: 311px;
+          // width: 220px;
+
+          .loggedIn {
+            width: 311px;
+            margin: 0 auto;
+          }
+
+          .loggedOut {
+            width: 220px;
+            margin: 0 auto;
+          }
 
           li {
             display: inline-block;
@@ -54,13 +64,33 @@ body {
       }
     }
 
+    .notice {
+      text-align: center;
+      border: 2px solid #528852;
+      background-color: #B3DFB3;
+      width: 330px;
+      padding: 10px;
+      margin: 0 auto 30px auto;
+    }
+
+    .alert {
+      text-align: center;
+      border: 2px solid #C51818;
+      background-color: #EABABC;
+      width: 330px;
+      padding: 10px;
+      margin: 0 auto 30px auto;
+    }
+
     .avatarSmall{
       display: inline-block;
       width: 70px;
       background-color: #FFFFFF;
+      border-radius: 35px;
 
       img {
         width: 70px;
+        border-radius: 10px;
       }
     }
 

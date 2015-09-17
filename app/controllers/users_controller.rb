@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   def update
     # @user.update(user_params)
     if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated!'
+      redirect_to profile_path(@user.username), notice: 'User was successfully updated!'
     else
       redirect_to edit_user_path(@user)
     end
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
     @relationship = Relationship.new(follower_id: current_user.id, followed_id: @user.id)
     p @user
     if @relationship.save
-      redirect_to @user, notice: "You're now following #{@user.username}"
+      redirect_to profile_path(@user.username), notice: "You're now following #{@user.username}"
     else
       flash[:alert] = "There was a problem following that user!"
       redirect_to posts_path

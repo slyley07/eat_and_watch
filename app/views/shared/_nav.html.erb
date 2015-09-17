@@ -6,23 +6,25 @@
 
     <ul>
       <% if current_user %>
+        <div class="loggedIn">
+          <li>
+            <%= link_to 'Feed', posts_path %>
+          </li>
 
-        <li>
-          <%= link_to 'Feed', posts_path %>
-        </li>
+          <li>
+            <%= link_to 'Prolife', profile_path(current_user.username) %>
+          </li>
 
-        <li>
-          <%= link_to 'Prolife', profile_path(current_user.username) %>
-        </li>
-
-        <li>
-          <%= link_to 'Log out', logout_path, method: :delete %>
-        </li>
-
+          <li>
+            <%= link_to 'Log out', logout_path, method: :delete %>
+          </li>
+        </div>
       <% else %>
-        <li>
-          <%= link_to 'Sign In/Sign Up', root_path %>
-        </li>
+        <div class="loggedOut">
+          <li>
+            <%= link_to 'Sign In/Sign Up', root_path %>
+          </li>
+        </div>
       <% end %>
     </ul>
   </nav>

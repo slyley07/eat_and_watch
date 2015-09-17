@@ -1,5 +1,5 @@
 <p>
-  <span class="user"><%= link_to post.user.username, user_path(post.user.id) %></span> is watching <%= post.show %> and eating <%= post.food %>
+  <span class="user"><%= link_to post.user.username, profile_path(post.user.username) %></span> is watching <%= post.show %> and eating <%= post.food %>
 </p>
 
 <p class="longAgo">
